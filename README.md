@@ -24,7 +24,7 @@ For supported Chef/Ruby version see [Travis](https://travis-ci.org/cmur2/chef-kl
 
 It is required to define `node['klaus']['repositories']` in order to provide klaus at least one repository to serve.
 
-Instead of manually applying the above one can use `node['klaus']['projects_list_path']` and `node['klaus']['projects_root_path']` to take advantage of the *projects.list* support in the cookbook, which automatically populates `node['klaus']['repositories']` with the contents of a specified *projects.list* with a given project root directory prepended.
+Instead of manually applying the above one can use `node['klaus']['projects_list_path']` and `node['klaus']['projects_root_path']` to take advantage of the [*projects.list*](https://www.kernel.org/pub/software/scm/git/docs/gitweb.html) support in the cookbook, which automatically populates `node['klaus']['repositories']` with the contents of a specified *projects.list* with a given project root directory prepended.
 
 Optional configuration: `node['klaus']['host']` sets the listen address for klaus, `node['klaus']['port']` the port. `node['klaus']['sitename']` the title for humans. `node['klaus']['smarthttp']` enables smart HTTP when `true`. `node['klaus']['htdigest']` may contain a htdigest file path.
 
