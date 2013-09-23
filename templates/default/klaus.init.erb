@@ -1,0 +1,40 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides: klaus
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Handle klaus egg
+### END INIT INFO
+
+DAEMON="<%= @daemon %>"
+
+DAEMON_OPTS="<%= @daemon_opts %>"
+
+test -x $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+    log_daemon_msg "Starting klaus" "klaus"
+    start-stop-daemon --start --quiet --oknodo --make-pidfile --pidfile "/var/run/klaus.pid" --background --exec $DAEMON -- $DAEMON_OPTS
+    log_end_msg $?
+    ;;
+  stop)
+    log_daemon_msg "Stopping klaus" "klaus"
+    start-stop-daemon --stop --quiet --oknodo --pidfile "/var/run/klaus.pid"
+    log_end_msg $?
+    ;;
+  restart|force-reload)
+    log_daemon_msg "Restarting klaus" "klaus"
+    start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile "/var/run/klaus.pid"
+    start-stop-daemon --start --quiet --oknodo --make-pidfile --pidfile "/var/run/klaus.pid" --background --exec $DAEMON -- $DAEMON_OPTS
+    log_end_msg $?
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
